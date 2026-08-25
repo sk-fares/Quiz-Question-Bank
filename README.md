@@ -40,12 +40,14 @@ The application allows users to create, view, update, and delete quiz questions.
 --- How to Run ---
 
 
-Backend -
+ -Backend -
 
 Open the terminal:
 
 cd backend
+
 npm install
+
 node server.js
 
 Backend runs on:
@@ -53,17 +55,24 @@ Backend runs on:
 http://localhost:5000
 
 
-Frontend -
+ -Frontend -
 
 Open another terminal:
 
 cd frontend
+
 npm install
+
 npm run dev
+
+
 
 Then open the URL shown by Vite in your browser.
 
-Database
+
+
+
+ -Database-
 
 The project uses MongoDB with Mongoose.
 
@@ -72,6 +81,8 @@ Database name:
 QuizDB
 
 
-Author
+
+
+-Author-
 
 Sk Md Fares
