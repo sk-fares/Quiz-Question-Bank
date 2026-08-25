@@ -1,88 +1,86 @@
 # Quiz Question Bank
 
-A simple full-stack Quiz Question Bank application built using React, Node.js, Express, MongoDB, and Mongoose.
+A simple full-stack **Quiz Question Bank** application built using **React, Node.js, Express, MongoDB, and Mongoose**.
 
 The application allows users to create, view, update, and delete quiz questions.
 
 ## Features
 
-- Add a new quiz question
-- View all quiz questions
-- Update an existing question
-- Delete a question
-- Four options for each question
-- Select the correct answer
-- Select question difficulty
-- MongoDB database storage
-- Mongoose schema validation
-- REST API using Express
-- React frontend using useState and useEffect
-- Axios for communication between frontend and backend
+* Add a new quiz question
+* View all quiz questions
+* Update an existing question
+* Delete a question
+* Four options for each question
+* Select the correct answer
+* Select question difficulty
+* MongoDB database storage
+* Mongoose schema validation
+* REST API using Express
+* React frontend using `useState` and `useEffect`
+* Axios for communication between frontend and backend
 
 ## Technologies Used
 
 ### Frontend
 
-- React
-- Vite
-- Axios
-- CSS
+* React
+* Vite
+* Axios
+* CSS
 
 ### Backend
 
-- Node.js
-- Express.js
-- Mongoose
-- MongoDB
-- CORS
-- dotenv
+* Node.js
+* Express.js
+* Mongoose
+* MongoDB
+* CORS
+* dotenv
 
---- How to Run ---
+## How to Run
 
+### Backend
 
- -Backend -
+Open a terminal and navigate to the backend folder:
 
-Open the terminal:
-
+```bash
 cd backend
-
 npm install
-
 node server.js
+```
 
-Backend runs on:
+The backend will run on:
 
+```text
 http://localhost:5000
+```
 
+### Frontend
 
- -Frontend -
+Open another terminal and navigate to the frontend folder:
 
-Open another terminal:
-
+```bash
 cd frontend
-
 npm install
-
 npm run dev
-
-
+```
 
 Then open the URL shown by Vite in your browser.
 
+## Database
 
+This project uses **MongoDB** with **Mongoose** for database management and schema validation.
 
+**Database Name:**
 
- -Database-
-
-The project uses MongoDB with Mongoose.
-
-Database name:
-
+```text
 QuizDB
+```
 
 
 
 
--Author-
 
-Sk Md Fares
+## Author
+
+**Sk Md Fares**
