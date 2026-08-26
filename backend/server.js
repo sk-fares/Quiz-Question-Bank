@@ -11,11 +11,17 @@ app.use(cors());
 
 const mongoURI = "mongodb+srv://skmdfares4_db_user:mxz12cV2V1Vk4Syg@cluster0.tyb5j8w.mongodb.net/QuizDB";
 
-mongoose.connect(mongoURI)
-    .then(() => console.log("MongoDB connected successfully to online database (QuizDB)"))
+const dbPromise = mongoose.connect(mongoURI)
+    .then((m) => {
+        console.log("MongoDB connected successfully to online database (QuizDB)");
+        return m;
+    })
     .catch((err) => {
         console.error("MongoDB connection error:", err);
-        process.exit(1);
+        if (require.main === module) {
+            process.exit(1);
+        }
+        throw err;
     });
 
 const PORT = 5000;
@@ -24,12 +30,21 @@ app.get("/", (req, res) => {
     res.send("Quiz Question Bank API is running!");
 });
 
-app.get("/db-status", (req, res) => {
-    const state = mongoose.connection.readyState;
-    res.json({ 
-        status: state === 1 ? "connected" : "disconnected",
-        readyState: state
-    });
+app.get("/db-status", async (req, res) => {
+    try {
+        await dbPromise;
+        const state = mongoose.connection.readyState;
+        res.json({ 
+            status: state === 1 ? "connected" : "disconnected",
+            readyState: state
+        });
+    } catch (err) {
+        res.json({ 
+            status: "disconnected",
+            readyState: mongoose.connection.readyState,
+            error: err.message
+        });
+    }
 });
 
 app.get("/questions", async (req, res) => {

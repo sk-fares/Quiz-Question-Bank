@@ -18,13 +18,29 @@ function App() {
             setQuestions(response.data);
         });
 
-        axios.get(`${API_URL}/db-status`)
-            .then((response) => {
-                setDbConnected(response.data.status === "connected");
-            })
-            .catch(() => {
-                setDbConnected(false);
-            });
+        let retries = 0;
+        const maxRetries = 5;
+        
+        const checkStatus = () => {
+            axios.get(`${API_URL}/db-status`)
+                .then((response) => {
+                    const isConnected = response.data.status === "connected";
+                    setDbConnected(isConnected);
+                    if (!isConnected && retries < maxRetries) {
+                        retries++;
+                        setTimeout(checkStatus, 2000);
+                    }
+                })
+                .catch(() => {
+                    setDbConnected(false);
+                    if (retries < maxRetries) {
+                        retries++;
+                        setTimeout(checkStatus, 2000);
+                    }
+                });
+        };
+
+        checkStatus();
     }, []);
 
     const addQuestion = (e) => {
