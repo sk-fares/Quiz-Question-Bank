@@ -2,10 +2,6 @@
   "name": "quiz-question-bank-root",
   "version": "1.0.0",
   "private": true,
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
@@ -13,7 +9,7 @@
     "mongoose": "^9.9.3"
   },
   "scripts": {
-    "backend": "npm run dev --workspace=backend",
-    "frontend": "npm run dev --workspace=frontend"
+    "backend": "npm run dev --prefix backend",
+    "frontend": "npm run dev --prefix frontend"
   }
 }
