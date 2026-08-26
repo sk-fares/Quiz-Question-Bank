@@ -11,11 +11,20 @@ function App() {
     const [difficulty, setDifficulty] = useState("Easy");
     const [questions, setQuestions] = useState([]);
     const [editId, setEditId] = useState(null);
+    const [dbConnected, setDbConnected] = useState("checking");
 
     useEffect(() => {
         axios.get(`${API_URL}/questions`).then((response) => {
             setQuestions(response.data);
         });
+
+        axios.get(`${API_URL}/db-status`)
+            .then((response) => {
+                setDbConnected(response.data.status === "connected");
+            })
+            .catch(() => {
+                setDbConnected(false);
+            });
     }, []);
 
     const addQuestion = (e) => {
@@ -82,7 +91,15 @@ function App() {
 
     return (
     <div>
-        <h1>Quiz Question Bank</h1>
+        <div className="header-container">
+            <h1>Quiz Question Bank</h1>
+            <div className={`db-status-badge ${dbConnected === true ? "connected" : dbConnected === false ? "disconnected" : "checking"}`}>
+                <span className="status-dot"></span>
+                <span className="status-text">
+                    {dbConnected === true ? "Database Connected" : dbConnected === false ? "Database Disconnected" : "Checking Database..."}
+                </span>
+            </div>
+        </div>
 
         <div className="main-content">
 

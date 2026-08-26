@@ -25,6 +25,14 @@ app.get("/", (req, res) => {
     res.send("Quiz Question Bank API is running!");
 });
 
+app.get("/db-status", (req, res) => {
+    const state = mongoose.connection.readyState;
+    res.json({ 
+        status: state === 1 ? "connected" : "disconnected",
+        readyState: state
+    });
+});
+
 app.get("/questions", async (req, res) => {
     const questions = await Question.find();
     res.json(questions);
