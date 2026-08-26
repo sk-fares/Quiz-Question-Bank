@@ -9,12 +9,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const mongoURI = process.env.MONGODB_URI || process.env.MONGO_URI;
-
-if (!mongoURI) {
-    console.error("Error: MongoDB connection URI (MONGODB_URI or MONGO_URI) is not defined.");
-    process.exit(1);
-}
+const defaultOnlineURI = "mongodb+srv://skmdfares4_db_user:mxz12cV2V1Vk4Syg@cluster0.tyb5j8w.mongodb.net/QuizDB";
+const mongoURI = process.env.MONGODB_URI || process.env.MONGO_URI || defaultOnlineURI;
 
 mongoose.connect(mongoURI)
     .then(() => console.log("MongoDB connected successfully to online database"))

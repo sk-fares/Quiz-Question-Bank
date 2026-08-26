@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 function App() {
     const [questionText, setQuestionText] = useState("");
     const [options, setOptions] = useState(["", "", "", ""]);
@@ -11,7 +13,7 @@ function App() {
     const [editId, setEditId] = useState(null);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/questions").then((response) => {
+        axios.get(`${API_URL}/questions`).then((response) => {
             setQuestions(response.data);
         });
     }, []);
@@ -20,7 +22,7 @@ function App() {
         e.preventDefault();
 
         axios
-            .post("http://localhost:5000/questions", {
+            .post(`${API_URL}/questions`, {
                 questionText,
                 options,
                 correctAnswer,
@@ -46,7 +48,7 @@ function App() {
     const updateQuestion = (e) => {
         e.preventDefault();
 
-        axios.put(`http://localhost:5000/questions/${editId}`, {
+        axios.put(`${API_URL}/questions/${editId}`, {
             questionText,
             options,
             correctAnswer,
@@ -68,7 +70,7 @@ function App() {
     };
 
     const deleteQuestion = (id) => {
-        axios.delete(`http://localhost:5000/questions/${id}`)
+        axios.delete(`${API_URL}/questions/${id}`)
             .then(() => {
                 setQuestions(
                     questions.filter((question) => question._id !== id)
