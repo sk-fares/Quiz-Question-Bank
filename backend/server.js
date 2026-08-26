@@ -9,9 +9,19 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB connected"))
-    .catch((err) => console.log(err));
+const mongoURI = process.env.MONGODB_URI || process.env.MONGO_URI;
+
+if (!mongoURI) {
+    console.error("Error: MongoDB connection URI (MONGODB_URI or MONGO_URI) is not defined.");
+    process.exit(1);
+}
+
+mongoose.connect(mongoURI)
+    .then(() => console.log("MongoDB connected successfully to online database"))
+    .catch((err) => {
+        console.error("MongoDB connection error:", err);
+        process.exit(1);
+    });
 
 const PORT = 5000;
 
