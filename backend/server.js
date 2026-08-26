@@ -10,7 +10,13 @@ app.use(express.json());
 app.use(cors());
 
 const defaultOnlineURI = "mongodb+srv://skmdfares4_db_user:mxz12cV2V1Vk4Syg@cluster0.tyb5j8w.mongodb.net/QuizDB";
-const mongoURI = process.env.MONGODB_URI || process.env.MONGO_URI || defaultOnlineURI;
+let mongoURI = process.env.MONGODB_URI || process.env.MONGO_URI || defaultOnlineURI;
+
+// Force online database if the environment points to a local MongoDB instance
+if (mongoURI.includes("localhost") || mongoURI.includes("127.0.0.1")) {
+    console.log("Local MongoDB URI detected in environment. Overriding with online MongoDB database.");
+    mongoURI = defaultOnlineURI;
+}
 
 mongoose.connect(mongoURI)
     .then(() => console.log("MongoDB connected successfully to online database"))
